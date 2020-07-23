@@ -3,6 +3,9 @@
         <image class="logo" src="../../static/logo.png"></image>
 		<view>
             <text class="title">{{title}}</text>
+			<view class="">
+				走一遍完整发布流程，小程序和h5.还有最终打包，部署流程。
+			</view>
         </view>
 	</view>
 </template>
