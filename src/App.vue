@@ -1,6 +1,5 @@
 <template>
-    <!-- <router-view/> -->
-    <div>测试</div>
+    <router-view/>
 </template>
 
 <script>

@@ -22,14 +22,9 @@ const route = [
     component: () => import(/* webpackChunkName: "about" */ '../views/release.vue')
   },
   {
-    path: '/mine',
-    name: 'mine',
-    component: () => import(/* webpackChunkName: "about" */ '../views/mine/index.vue')
-  },
-  {
     path: '/focus',
     name: 'focus',
-    component: () => import(/* webpackChunkName: "about" */ '../views/mine/focusUser.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/focus/index.vue')
   }
 ]
 

@@ -1,22 +1,32 @@
 <template>
-    <div class="topic_wrap">
-      <div class="">
-        <span class="t-tit">热门话题</span>
-        <ul class="t-list">
-          <li v-for="(item,idx) in topicList" :key="idx">{{item}}</li>
-        </ul>
-      </div>
-      <div class="mine">
-        <div class="mine-box">
-          <span @click="toRealease">发布</span>
-          <span @click="toMine">个人中心</span>
+    <div class="weibo">
+      <div class="user-info">
+        <span class="edit"  @click="toRealease">
+          <svg-icon icon-class="edit"></svg-icon>
+        </span>
+        <img src="" class="user-bg" alt="">
+        <span class="header">
+          <img src="" class="user-h" alt="">
+          <span class="name">老王</span>
+        </span>
+         <svg-icon icon-class="edit" class-name="card-panel-icon"></svg-icon>
+        <temp></temp>
+        <div>
+          <div>
+            <span>关注</span>
+            <span>100人</span>
+          </div>
+          <div>
+            <span>被关注</span>
+            <span>100人</span>
+          </div>
         </div>
       </div>
       <div class="div-line ignore-vw"></div>
       <div class="blog-wrap">
-        <div class="blog-header">
-          <span class="active tit">热点</span>
-          <span class="tit">关注</span>
+        <div @click="tabActive" class="blog-header">
+            <span data-id="tab1" :class=" nowActive === 'tab1' ? 'active' : '' + ' tit'">热点</span>
+            <span data-id="tab2" :class=" nowActive === 'tab2' ? 'active' : '' + ' tit'">关注</span>
         </div>
         <ul class="blog-list">
           <li class="" v-for="item in blogList" :key="item.blogId">
@@ -46,17 +56,7 @@ import { setStorage } from '../../utils/storage'
 export default {
   data() {
     return {
-      topicList:[
-        '话题发送到发送到发送到......',
-        '话题发送到发送到发送到......',
-        '话题发送到发送到发送到......',
-        '话题发送到发送到发送到......',
-        '话题发送到发送到发送到......',
-        '话题发送到发送到发发送到发送到发发送到发送到发送到......',
-        '话题发送到发送到发送到......',
-        '话题发送到发送到发送到......',
-        '话题发送到发送到发送到......'
-      ],
+      nowActive:'tab1',
       blogList: [
         {
           img: '',
@@ -88,6 +88,11 @@ export default {
     // setStorage('userinfo',userInfo)
   },
   methods: {
+
+    tabActive(e) {
+      this.nowActive = e.target.dataset.id
+      // console.log(e)
+    },
     // 去个人中心
     toMine() {
       this.$router.push({name: 'mine'})
@@ -99,85 +104,6 @@ export default {
   },
 }
 </script>
-<style scoped lang='scss'>
-.bl-top {
-  display: flex;
-  flex-direction: row;
-  .picture {
-    width: 30px;
-    height: 30px;
-    overflow: hidden;
-    border-radius: 50%;
-    img {
-      display: block;
-      width: 100%;
-      height: 100%;
-    }
-  }
-  .bl-user {
-    flex-grow: 1;
-    padding: 0 10px;
-    .nickname {
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-    .createtime {
-      color: #999;
-    }
-  }
-  .focus {
-    width: 60px;
-    height: 20px;
-    line-height: 20px;
-    border-radius: 20px;
-    text-align: center;
-    color: rgb(241,142,0);
-    border: 1px solid rgb(241,142,0);
-  }
-}
- .blog-header {
-  display: flex;
-  justify-content: center;
-  color: #999;
-  padding: 18px 0;
-  .tit {
-    font-size: 14px;
-    margin: 0 4px;
-    padding: 0 2px 4px;
-  }
-  .active {
-    font-size: 16px;
-    border-bottom: 2px solid rgb(241,142,0);
-    color: #000;
-  }
-}
-.mine {
-
-  position: fixed;
-  width: 100%;
-  left: 0;
-  bottom: 0;
-}
-.t-list {
-  height: 72px;
-  overflow: hidden;
-  padding: 10px 10px;
-  li {
-    font-size: 12px;
-    padding: '2px 2px';
-    height: 20px;
-    line-height: 20px;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    color: '#333';
-  }
-}
-.mine-box {
-  display: flex;
-  justify-content: center;
-  span {
-    text-align: center;
-    flex-grow: 1;
-  }
-} 
+<style scoped lang="scss">
+@import '../../assets/style/home/index.scss';
 </style>

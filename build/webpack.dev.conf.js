@@ -8,7 +8,8 @@ const webConf = merge(baseConfig,{
   devtool: 'inline-source-map',
   devServer: {
     contentBase: './dist',
-    hot: true
+    hot: true,
+    port:'8070'
   },
   module: {
     rules: [
