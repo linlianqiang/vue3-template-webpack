@@ -19,12 +19,17 @@ const route = [
   {
     path: '/release',
     name: 'release',
-    component: () => import(/* webpackChunkName: "about" */ '../views/release.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/release/index.vue')
   },
   {
-    path: '/focus',
-    name: 'focus',
-    component: () => import(/* webpackChunkName: "about" */ '../views/focus/index.vue')
+    path: '/focu',
+    name: 'focu',
+    component: () => import( '../views/focu/index.vue')
+  },
+  {
+    path: '/user',
+    name: 'user',
+    component: () => import('../views/userCenter/index.vue')
   }
 ]
 

@@ -1,0 +1,25 @@
+
+  .focu-wrap {
+    .header {
+      display: flex;
+      flex-direction: row;
+      .focu-type {
+        flex-grow: 1;
+        text-align: center;
+      }
+      .active {
+        border-bottom: 2px solid rgb(241,142,0);
+      }
+    }
+  }
+  .focu-item {
+    display: flex;
+    flex-direction: row;
+  }
+  .name {
+    flex-grow: 1;
+  }
+  .cancle-focu {
+    color: red;
+  }
+  

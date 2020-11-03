@@ -1,8 +1,3 @@
-<!--
-* @description: 博客首页：头部个人信息，及博客列表
-* @author： 林连强
-*
--->
 <template>
     <div class="weibo">
         <div class="user-info">
@@ -11,18 +6,10 @@
             </span>
             <img src="" class="user-bg" alt="" />
             <span class="header">
-                <router-link to="/user">
-                    <img src="" class="user-h" alt="" />
-                </router-link>
+                <img src="" class="user-h" alt="" />
                 <span class="name">老王</span>
             </span>
             <div class="focu-wrap">
-                <div class="focu-item">
-                    <router-link to="/user">
-                        <span>微博</span>
-                        <span>44</span>
-                    </router-link>
-                </div>
                 <div class="focu-item" @click="toFocus('tab1')">
                     <span>关注</span>
                     <span>100人</span>
@@ -35,18 +22,6 @@
         </div>
         <div class="div-line ignore-vw"></div>
         <div class="blog-wrap">
-            <div @click="tabActive" class="blog-header">
-                <span
-                    data-id="tab1"
-                    :class="nowActive === 'tab1' ? 'active' : '' + ' tit'"
-                    >热点</span
-                >
-                <span
-                    data-id="tab2"
-                    :class="nowActive === 'tab2' ? 'active' : '' + ' tit'"
-                    >关注</span
-                >
-            </div>
             <blog-list :blogList="blogList"></blog-list>
         </div>
     </div>
@@ -66,14 +41,20 @@ export default {
             a: 1,
             nowActive: "tab1",
             blogList: [],
+            list: [],
             watchAttr: 444,
         };
     },
     async created() {
         setStorage("name", "lsj");
         // 获取博客列表
-        this.blogList = await blogList();
-        console.log("list", this.blogList);
+        // this.list =  await blogList()
+        // // 获取话题列表
+        // getTopic().then(res => {
+        // })
+        // // 获取用户信息
+        // const userInfo = await getUserInfo()
+        // setStorage('userinfo',userInfo)
     },
     computed: {
         computedAttr: function () {
@@ -106,12 +87,6 @@ export default {
     },
 };
 </script>
-<style>
-.name {
-    font-size: 18px;
-    color: red;
-}
-</style>
 <style scoped lang="scss">
 @import "../../assets/style/home.scss";
 </style>
