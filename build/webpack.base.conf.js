@@ -2,13 +2,14 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const { VueLoaderPlugin } = require('vue-loader')
-
+const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
     entry: {
         app: path.resolve(__dirname, '../src/main.js'),
     },
+    // entry: path.resolve(__dirname, '../src/main.js'),
     output: {
-        filename: '[name].bundle.js', // [contenthash]
+        filename: 'bundle.[hash].js', // [contenthash]
         path: path.resolve(__dirname, '../dist'),
         // 资源引用的路径
         publicPath: '/'
@@ -45,7 +46,14 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    'style-loader',
+                    isProduction ?
+                        {
+                            loader: MiniCssExtractPlugin.loader
+                        }
+                        :
+                        {
+                            loader: 'style-loader',
+                        },
                     {
                         loader: 'css-loader',
                     },

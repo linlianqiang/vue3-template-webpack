@@ -5,11 +5,11 @@
 -->
 <template>
     <ul class="blog-list">
-        <li class="" v-for="item in blogList" :key="item.blogId">
+        <li class="blog-item" v-for="item in blogList" :key="item.blogId">
             <div class="bl-top">
                 <router-link class="picture" to="/user">
                     <span>
-                        <img src="../assets/images/user.jpg" alt="" />
+                        <img src="../assets/images/head.png" alt="" />
                     </span>
                 </router-link>
                 <div class="bl-user">
@@ -23,6 +23,17 @@
                     >#{{ item.topic_title }}#</span
                 >
                 <span class="con">{{ item.content }}</span>
+                <div class="img-wrap">
+                    <img src="../assets/images/product/1.jpg" alt="" />
+                    <img src="../assets/images/product/2.jpg" alt="" />
+                    <img src="../assets/images/product/3.jpg" alt="" />
+                    <img src="../assets/images/product/4.jpg" alt="" />
+                    <img src="../assets/images/product/5.jpg" alt="" />
+                    <img src="../assets/images/product/6.jpg" alt="" />
+                    <img src="../assets/images/product/1.jpg" alt="" />
+                    <img src="../assets/images/product/2.jpg" alt="" />
+                    <img src="../assets/images/product/3.jpg" alt="" />
+                </div>
                 <!-- <span v-if="item.aite" class="aite">@{{item.aite}}</span> -->
             </div>
         </li>
@@ -39,12 +50,30 @@ export default {
 };
 </script>
 <style scoped lang="scss">
+.blog-list {
+    padding: 0 10px;
+    .blog-item {
+        margin-bottom: 10px;
+    }
+}
+.img-wrap {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding: 10px 10px;
+    img {
+        width: 32%;
+    }
+}
 .bl-top {
     display: flex;
     flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+
     .picture {
-        width: 30px;
-        height: 30px;
+        width: 40px;
+        height: 40px;
         overflow: hidden;
         border-radius: 50%;
         img {
@@ -65,7 +94,7 @@ export default {
         }
     }
     .focus {
-        width: 60px;
+        width: 44px;
         height: 20px;
         line-height: 20px;
         border-radius: 20px;
@@ -73,5 +102,8 @@ export default {
         color: rgb(241, 142, 0);
         border: 1px solid rgb(241, 142, 0);
     }
+}
+.bl-con {
+    text-indent: 5px;
 }
 </style>

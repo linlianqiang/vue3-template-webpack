@@ -1,10 +1,23 @@
 const path = require('path')
 const { merge } = require('webpack-merge')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const baseConfig = require('./webpack.base.conf')
+
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin')
+
+const baseConfig = require('./webpack.base.conf');
+const webpack = require('webpack');
+
+const isProduction = process.env.NODE_ENV === 'production';
+
 module.exports = merge(baseConfig, {
     mode: 'production',
     devtool: 'source-map',
+    module: {
+        noParse: /loadsh/,  //不需要解析的库
+        rules: [
+        ]
+    },
     optimization: { //实现按需加载，将业务代码 与 带三方库代码进行分离
         splitChunks: {
             cacheGroups: {
@@ -26,5 +39,15 @@ module.exports = merge(baseConfig, {
     },
     plugins: [
         new CleanWebpackPlugin(),
+        new MiniCssExtractPlugin({ //提取
+            filename: '[name].[hash].css',
+            chunkFilename: '[id].[hash].css'
+        }),
+        new OptimizeCssAssetsPlugin({ //压缩优化
+            cssProcessorPluginOptions: {
+                preset: ['default', { discardComments: { removeAll: true } }],
+            },
+            canPrint: true
+        })
     ]
 })

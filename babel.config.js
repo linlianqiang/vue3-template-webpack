@@ -8,7 +8,7 @@ module.exports = {
             "targets": {  //浏览器市场份额，范围越小，体积越小。看项目需求
                 "browsers": [">0.25%"]
             },
-            //"useBuiltIns": 'usage' //polifill 只用在部分需要用到的地方
+            "useBuiltIns": 'usage' //polifill 只用在部分需要用到的地方
         }
     ]],
     //转换插件，来解析语法并转换

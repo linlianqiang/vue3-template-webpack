@@ -88,5 +88,4 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-@import "../../assets/style/home.scss";
 </style>

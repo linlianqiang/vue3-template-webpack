@@ -22,7 +22,11 @@ const webConf = merge(baseConfig, {
         ]
     },
     plugins: [
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.DllReferencePlugin({ //开发环境更适用，加快构建过程
+            context: __dirname,
+            manifest: require('./dll/vue.manifest.json')
+        })
     ]
 })
 // console.log('webConf',webConf)
