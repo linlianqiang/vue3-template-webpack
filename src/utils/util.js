@@ -10,7 +10,7 @@ function imageUploadShow(imgChange, imgWrap, len) {
     imgChange.addEventListener("change", function () {
         //获取已有的图片长度
         const curLength = imgBox.querySelectorAll("img").length;
-        if (len > curLength) return;
+        if (len <= curLength) return;
         // 创建读取文件对象
         const reader = new FileReader();
         reader.onload = function (e) {

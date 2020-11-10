@@ -53,7 +53,7 @@
                     >关注</span
                 >
             </div>
-            <blog-list :blogList="blogList"></blog-list>
+            <blog-list @test="testA" :blogList="blogList"></blog-list>
         </div>
     </div>
 </template>
@@ -75,16 +75,21 @@ export default {
             watchAttr: 444,
         };
     },
+    setup() {},
     async created() {
         // 获取博客列表
         this.blogList = await blogList();
-        console.log("list", this.blogList);
+        // 获取微博数量
+        // 获取关注数量
+        // 获取粉丝数量
     },
     computed: {
         computedAttr: function () {
-            console.log("computed");
             return this.a + 2;
         },
+    },
+    mounted() {
+        console.log("this", this);
     },
     watch: {
         watchAttr: function () {},

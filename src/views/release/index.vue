@@ -4,26 +4,30 @@
 -->
 <template>
     <div class="about">
-        <div class="header-set">
-            <span>取消</span>
+        <div class="header-set ignore-vw">
+            <span class="cancle">取消</span>
             <span class="tit">发趣事</span>
             <span class="send">发布</span>
         </div>
-        <textarea
-            name=""
-            id=""
-            cols="30"
-            rows="10"
-            placeholder="分享新鲜事"
-        ></textarea>
+        <div class="textarea">
+            <textarea
+                name=""
+                id=""
+                cols="30"
+                rows="10"
+                placeholder="分享新鲜事..."
+            ></textarea>
+        </div>
         <div>
             <div id="imgBox"></div>
-            <span
-                >图片
-                <input type="file" id="imgFileUp" />
-            </span>
-            <span>@</span>
-            <span>#</span>
+            <div class="send-oprate">
+                <span @click="uploadImg" class="do-img"
+                    >图片
+                    <input class="do-upimg" type="file" id="imgFileUp" />
+                </span>
+                <span class="do-aite">@</span>
+                <span class="do-topic">#</span>
+            </div>
         </div>
     </div>
 </template>
@@ -35,6 +39,8 @@ export default {
         setStorage("name", "llq");
     },
     mounted() {
+        // 初始化图片 change 事件
+        this.imgClick = document.getElementById("imgFileUp");
         this.fileUp();
     },
     methods: {
@@ -45,11 +51,56 @@ export default {
         fileUp() {
             const imgBox = document.getElementById("imgBox");
             const imgUpload = document.getElementById("imgFileUp");
-            imageUploadShow(imgUpload, imgBox, 9);
+            imageUploadShow(this.imgClick, imgBox, 9);
+        },
+        uploadImg() {
+            this.imgClick.click();
         },
     },
 };
 </script>
 <style lang="scss" scoped>
-@import "../../assets/style/release.scss";
+.header-set.ignore-vw {
+    background: rgb(251, 251, 251);
+    display: flex;
+    padding: 0 10px;
+    align-items: center;
+    height: 40px;
+    color: #666;
+    .cancle {
+    }
+    .tit {
+        font-size: 16px;
+        flex-grow: 1;
+        text-align: center;
+    }
+    .send {
+        color: rgb(241, 142, 0);
+    }
+}
+.textarea {
+    height: 150px;
+    padding: 10px;
+    textarea {
+        display: block;
+        width: 100%;
+        height: 100%;
+    }
+}
+.send-oprate {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    height: 30px;
+    background: rgb(251, 251, 251);
+    display: flex;
+    align-items: center;
+    span {
+        text-align: center;
+        flex-grow: 1;
+    }
+    .do-upimg {
+        display: none;
+    }
+}
 </style>

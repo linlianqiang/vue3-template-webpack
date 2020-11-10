@@ -7,6 +7,7 @@ import './assets/base.css'
 import SvgIcon from './icons/index.js' // icon
 import './utils/test'
 import GlobalTemp from './components/globalTemp.js'
+console.log('App', App)
 const app = createApp(App)
 app.use(SvgIcon)
 app.use(GlobalTemp)

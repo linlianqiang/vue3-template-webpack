@@ -16,7 +16,7 @@
                     <div class="nickname">{{ item.user.nickName }}</div>
                     <div class="createtime">{{ item.user.createdAt }}</div>
                 </div>
-                <span class="focus">关注</span>
+                <span @click="testB" class="focus">关注</span>
             </div>
             <div class="bl-con">
                 <span v-if="item.topic_title" class="topic"
@@ -24,15 +24,33 @@
                 >
                 <span class="con">{{ item.content }}</span>
                 <div class="img-wrap">
-                    <img src="../assets/images/product/1.jpg" alt="" />
-                    <img src="../assets/images/product/2.jpg" alt="" />
-                    <img src="../assets/images/product/3.jpg" alt="" />
-                    <img src="../assets/images/product/4.jpg" alt="" />
-                    <img src="../assets/images/product/5.jpg" alt="" />
-                    <img src="../assets/images/product/6.jpg" alt="" />
-                    <img src="../assets/images/product/1.jpg" alt="" />
-                    <img src="../assets/images/product/2.jpg" alt="" />
-                    <img src="../assets/images/product/3.jpg" alt="" />
+                    <span>
+                        <img src="../assets/images/product/1.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/2.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/3.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/4.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/5.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/6.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/1.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/2.jpg" alt="" />
+                    </span>
+                    <span>
+                        <img src="../assets/images/product/3.jpg" alt="" />
+                    </span>
                 </div>
                 <!-- <span v-if="item.aite" class="aite">@{{item.aite}}</span> -->
             </div>
@@ -45,6 +63,11 @@ export default {
         blogList: {
             type: Array,
             required: true,
+        },
+    },
+    methods: {
+        testB() {
+            this.$emit("test", this);
         },
     },
 };
@@ -61,8 +84,15 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
     padding: 10px 10px;
-    img {
-        width: 32%;
+    span {
+        width: 28.5vw;
+        height: 28.5vw;
+        margin-bottom: 8px;
+        overflow: hidden;
+        img {
+            display: block;
+            width: 100%;
+        }
     }
 }
 .bl-top {
