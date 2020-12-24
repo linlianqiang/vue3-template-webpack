@@ -9,7 +9,7 @@ const webConf = merge(baseConfig, {
     devServer: {
         contentBase: './dist',
         hot: true,
-        port: '8070',
+        port: '8060',
         proxy: {
             '/blog': 'http://127.0.0.1:8090',
             '/user': 'http://127.0.0.1:8090'
@@ -18,7 +18,59 @@ const webConf = merge(baseConfig, {
     },
     module: {
         rules: [
-
+            {
+                test: /\.css$/,
+                use: [
+                    {
+                        loader: 'style-loader',
+                    },
+                    {
+                        loader: 'css-loader',
+                    },
+                    'postcss-loader'
+                ]
+            },
+            {
+                test: /\.(scss|sass)$/,
+                use: [
+                    {
+                        loader: 'style-loader'
+                    },
+                    {
+                        loader: 'css-loader',
+                        options: {
+                            importLoaders: 2
+                        }
+                    },
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            implementation: require('dart-sass')
+                        }
+                    },
+                    {
+                        loader: 'postcss-loader'
+                    }
+                ]
+            },
+            {
+                test: /\.(jpe?g|png|gif|svg)$/,
+                exclude: [path.resolve('src/icons')],
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            fallback: {
+                                loader: 'file-loader',
+                                options: {
+                                    esModule: false, //关闭es6规范，采用common.js
+                                    name: 'img/[name].[hash:8].[ext]'
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
         ]
     },
     plugins: [

@@ -1,5 +1,5 @@
 <!-- 
-    @description  博客列表：广场，个人主页
+    @description  组件：博客列表（全部 或者 用户）
     @author  林连强
     @version 2020-10-02
 -->
@@ -7,7 +7,10 @@
     <ul class="blog-list">
         <li class="blog-item" v-for="item in blogList" :key="item.blogId">
             <div class="bl-top">
-                <router-link class="picture" to="/user">
+                <router-link
+                    class="picture"
+                    :to="{ path: '/user', query: { userId: item.userId } }"
+                >
                     <span>
                         <img src="../assets/images/head.png" alt="" />
                     </span>
@@ -16,7 +19,9 @@
                     <div class="nickname">{{ item.user.nickName }}</div>
                     <div class="createtime">{{ item.user.createdAt }}</div>
                 </div>
-                <span @click="testB" class="focus">关注</span>
+                <span v-if="!userId" @click="testB" class="focus-btn"
+                    >关注</span
+                >
             </div>
             <div class="bl-con">
                 <span v-if="item.topic_title" class="topic"
@@ -58,18 +63,22 @@
     </ul>
 </template>
 <script>
+import { getBlogList } from "../api/blog";
+import BlogList from "@/components/BlogList.vue";
 export default {
-    props: {
-        blogList: {
-            type: Array,
-            required: true,
-        },
+    props: {},
+    data() {
+        return {
+            blogList: [],
+            userId: "",
+        };
     },
-    methods: {
-        testB() {
-            this.$emit("test", this);
-        },
+    async mounted() {
+        this.userId = this.$route.query.userId;
+        // 获取博客列表
+        this.blogList = await getBlogList();
     },
+    methods: {},
 };
 </script>
 <style scoped lang="scss">
@@ -77,6 +86,7 @@ export default {
     padding: 0 10px;
     .blog-item {
         margin-bottom: 10px;
+        border-bottom: 1px solid #f0f0f0;
     }
 }
 .img-wrap {
@@ -122,15 +132,6 @@ export default {
         .createtime {
             color: #999;
         }
-    }
-    .focus {
-        width: 44px;
-        height: 20px;
-        line-height: 20px;
-        border-radius: 20px;
-        text-align: center;
-        color: rgb(241, 142, 0);
-        border: 1px solid rgb(241, 142, 0);
     }
 }
 .bl-con {

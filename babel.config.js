@@ -15,6 +15,9 @@ module.exports = {
     plugins: [
 
         // "@babel/plugin-transform-arrow-functions",
+        // "@babel/plugin-proposal-decorators",
+        // "@babel/plugin-proposal-class-properties",
+        "transform-decorators-legacy",
         "@babel/plugin-transform-runtime",
         '@babel/plugin-syntax-dynamic-import'
     ]

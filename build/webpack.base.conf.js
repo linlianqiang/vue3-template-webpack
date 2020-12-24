@@ -1,15 +1,18 @@
-// const webpack = require('webpack')
+const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
-const { VueLoaderPlugin } = require('vue-loader')
+const { VueLoaderPlugin } = require('vue-loader');
+const { DllReferencePlugin } = require('webpack');
 const isProduction = process.env.NODE_ENV === 'production';
 module.exports = {
     entry: {
         app: path.resolve(__dirname, '../src/main.js'),
+        // bundle: path.resolve(__dirname, '../src/main.js')
     },
     // entry: path.resolve(__dirname, '../src/main.js'),
     output: {
-        filename: 'bundle.[hash].js', // [contenthash]
+        // name 依赖 多入口 entry
+        filename: '[name].[hash].js', // contenthash hash被弃用， 会判断文件是否改变，hash不变，则从缓存获取。
         path: path.resolve(__dirname, '../dist'),
         // 资源引用的路径
         publicPath: '/'
@@ -17,48 +20,8 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.(scss|sass)$/,
-                use: [
-                    {
-                        loader: 'style-loader'
-                    },
-                    {
-                        loader: 'css-loader',
-                        options: {
-                            importLoaders: 2
-                        }
-                    },
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            implementation: require('dart-sass')
-                        }
-                    },
-                    {
-                        loader: 'postcss-loader'
-                    }
-                ]
-            },
-            {
                 test: /\.vue$/,
                 use: 'vue-loader'
-            },
-            {
-                test: /\.css$/,
-                use: [
-                    isProduction ?
-                        {
-                            loader: MiniCssExtractPlugin.loader
-                        }
-                        :
-                        {
-                            loader: 'style-loader',
-                        },
-                    {
-                        loader: 'css-loader',
-                    },
-                    'postcss-loader'
-                ]
             },
             {
                 test: /\.svg$/,
@@ -70,25 +33,6 @@ module.exports = {
                     }
                 }
 
-                ]
-            },
-            {
-                test: /\.(jpe?g|png|gif|svg)$/,
-                exclude: [path.resolve('src/icons')],
-                use: [
-                    {
-                        loader: 'url-loader',
-                        options: {
-                            limit: 4096,
-                            fallback: {
-                                loader: 'file-loader',
-                                options: {
-                                    esModule: false, //关闭es6规范，采用common.js
-                                    name: 'img/[name].[hash:8].[ext]'
-                                }
-                            }
-                        }
-                    }
                 ]
             },
             {
@@ -104,6 +48,15 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, '../template.html')
         }),
+        // 多页应用
+        // new HtmlWebpackPlugin({
+        //     template: path.resolve(__dirname, '../other.html'),
+        //     chunks: ['other', 'vender', 'common']
+        // }),
+        new webpack.DllReferencePlugin({ //在开发中使用更合适
+            context: __dirname,
+            manifest: require('./dll/vue.manifest.json')
+        })
     ],
     resolve: { //模块如何被解析，是否精准匹配
         extensions: ['.vue', '.js'], //自动解析确定的扩展

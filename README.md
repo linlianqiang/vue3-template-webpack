@@ -15,7 +15,7 @@ webpack4.44.4 + vue3.0
 1，svg应用：将svg图标添加到全局组件，随处可用
 2，自定义实现图片九宫格 展示
 3，使用vh，vw视图窗口单位
-4，vue3.0：composition
+4，vue3.0：composition API ：setup、ref、reactive、..的使用
 
 
 

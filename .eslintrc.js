@@ -12,5 +12,6 @@ module.exports = {
             "error",
             4
         ],
+        "vue/no-multiple-template-root": "off"
     }
 }

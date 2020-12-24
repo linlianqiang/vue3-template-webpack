@@ -1,10 +1,11 @@
 
 /**
  * @description 图片上传，立即显示
- * @author LLQ
  * @param{Object} imgChange 点击图片上传的对象
  * @param{Object} imgWrap 上传后，图片显示的父级
  * @param{Number} len 最多上传几张
+ * @returns 生成九宫格，宽高：80
+ * @author LLQ
  */
 function imageUploadShow(imgChange, imgWrap, len) {
     imgChange.addEventListener("change", function () {
@@ -53,6 +54,10 @@ export function deepClone(obj) {
     return result
 }
 
+function TT() {
+    console.log('TT1')
+}
+TT()
 export {
     imageUploadShow
 }

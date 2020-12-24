@@ -5,9 +5,9 @@
 <template>
     <div class="about">
         <div class="header-set ignore-vw">
-            <span class="cancle">取消</span>
+            <a href="javascript: history.go(-1);" class="cancle">取消</a>
             <span class="tit">发趣事</span>
-            <span class="send">发布</span>
+            <span @click="sendBlog" class="send">发布</span>
         </div>
         <div class="textarea">
             <textarea
@@ -21,9 +21,9 @@
         <div>
             <div id="imgBox"></div>
             <div class="send-oprate">
-                <span @click="uploadImg" class="do-img"
+                <span @click="clickInputFile" class="do-img"
                     >图片
-                    <input class="do-upimg" type="file" id="imgFileUp" />
+                    <input class="do-upimg" type="file" id="inputFile" />
                 </span>
                 <span class="do-aite">@</span>
                 <span class="do-topic">#</span>
@@ -32,30 +32,31 @@
     </div>
 </template>
 <script>
-import { setStorage } from "../../utils/storage";
 import { imageUploadShow } from "@/utils/util";
+import { onMounted } from "vue";
+function useSendBlog() {}
 export default {
-    created() {
-        setStorage("name", "llq");
-    },
-    mounted() {
-        // 初始化图片 change 事件
-        this.imgClick = document.getElementById("imgFileUp");
-        this.fileUp();
-    },
-    methods: {
+    setup() {
+        let imgClick = null;
+        onMounted(() => {
+            imgClick = document.getElementById("inputFile");
+            let imgBox = document.getElementById("imgBox");
+            imageUploadShow(imgClick, imgBox, 9); //切勿重复监听
+        });
         /**
-         * @description 图片上传,最多9张，不超过1M
-         * @author LLQ
+         * @description 点击inputFile
          */
-        fileUp() {
-            const imgBox = document.getElementById("imgBox");
-            const imgUpload = document.getElementById("imgFileUp");
-            imageUploadShow(this.imgClick, imgBox, 9);
-        },
-        uploadImg() {
-            this.imgClick.click();
-        },
+        const clickInputFile = function () {
+            imgClick.click();
+        };
+        /**
+         * @description 创建微博
+         */
+        const sendBlog = function () {};
+        return {
+            clickInputFile,
+            sendBlog,
+        };
     },
 };
 </script>
@@ -68,6 +69,7 @@ export default {
     height: 40px;
     color: #666;
     .cancle {
+        color: #666;
     }
     .tit {
         font-size: 16px;
